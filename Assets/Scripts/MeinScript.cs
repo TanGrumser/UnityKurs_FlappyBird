@@ -11,18 +11,6 @@ public class MeinScript : MonoBehaviour {
     public LayerMask layerMask;
     int jumps = 2;
 
-    // Aufgabe 1: Berechne die Summe der Zahlen von 1 bis 132 also 1 + 2 + 3 + ... + 131 + 132
-    // Aufgabe 2: Erstelle ein array mit 20 Feldern und lade die Zahlen 5, 10, 15,..., 95, 100
-    void Aufagbe1() {
-        int summe = 0;
-
-        for (int i = 0; i < 133; i++) {
-            summe += i;
-        }
-
-        Debug.Log(summe); //8778
-    }
-
     void Start() {
         Debug.Log("Wir zählen jetzt bis 10.");
 
