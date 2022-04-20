@@ -1,21 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
 
+    public TMP_Text scoreText;
     public GameObject pipePrefab;
     float counter = 1.5f;
+    public static int score = 0;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public static bool isGameRunning = true;
+    public static bool hasGameStarted = false;
+
+    public static GameManager instance;
+
+    void Start () {
+        if (instance == null) {
+            instance = this;
+        } else if (instance != this) {
+            Destroy(gameObject);
+        }
     }
 
     // Update is called once per frame
     void Update() {
+        if (hasGameStarted == false) {
+            return;
+        }
+
+        if (!isGameRunning) {
+            return;
+        }
+
         counter -= Time.deltaTime;
 
         if (counter < 0f) {
@@ -24,5 +42,9 @@ public class GameManager : MonoBehaviour
             Instantiate(pipePrefab, new Vector3(15f, height, 0f), Quaternion.identity);
             counter = 1.5f;
         }
+    }
+
+    public void DrawScore() {
+        scoreText.text = "Score: " + score;
     }
 }

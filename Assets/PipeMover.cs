@@ -8,6 +8,12 @@ public class PipeMover : MonoBehaviour {
     
     // Update is called once per frame
     void Update() {
-        transform.position += Vector3.left * speed * Time.deltaTime;
+        if (GameManager.isGameRunning) {
+            transform.position += Vector3.left * speed * Time.deltaTime;
+        }
+
+        if (transform.position.x < -30) {
+            Destroy(gameObject);
+        }
     }
 }
