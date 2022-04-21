@@ -10,22 +10,29 @@ public class PlayerController : MonoBehaviour {
     void Start() {
         animatior = GetComponentInChildren<Animator>();
         sr = GetComponentInChildren<SpriteRenderer>();
+
     }
 
     // Update is called once per frame
     void Update() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            Vector3 goalPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            StartCoroutine(MyCoroutine(goalPosition + Vector3.forward));
+        Camera.main.orthographicSize += Input.mouseScrollDelta.y;
+
+        if (Camera.main.orthographicSize < 3) {
+            Camera.main.orthographicSize = 3;
         }
-    }
 
-    IEnumerator MyCoroutine(Vector3 goalPosition) {
-        Vector3 startPosition = transform.position;
+        if (Input.GetKeyDown(KeyCode.RightArrow)) {
+            sr.flipX = false;
+            animatior.Play("Run");
+        }
 
-        for (int i = 0; i < 100; i++) {
-            transform.position = Vector3.Lerp(startPosition, goalPosition, i / 100f);
-            yield return new WaitForEndOfFrame();
+        if (Input.GetKeyDown(KeyCode.LeftArrow)) {
+            sr.flipX = true;
+            animatior.Play("Run");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            animatior.Play("Attack");
         }
     }
 }
